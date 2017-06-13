@@ -127,4 +127,5 @@ echo -ne   '\eP\e]12;#859900\a'  # Cursor       -> green
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-pyenv virtualenvwrapper
+pyenv virtualenvwrapper_lazy
+
