@@ -1,0 +1,8 @@
+proc            /proc           proc    defaults          0       0
+PARTUUID=c6fa3120-01  /boot           vfat    defaults          0       2
+PARTUUID=c6fa3120-02  /               ext4    defaults,noatime  0       1
+//192.168.0.207/clark /home/pi/media cifs user=utylee,pass=sksmsqnwk11,file_mode=0777,dir_mode=0777,uid=pi,gid=pi 0 0
+#//192.168.0.207/3001 /home/pi/media/3001 cifs user=samba,pass=9321,file_mode=0777,dir_mode=0777,uid=pi,gid=pi 0 0
+#//192.168.0.207/3002 /home/pi/media/3002 cifs user=samba,pass=9321,file_mode=0777,dir_mode=0777,uid=pi,gid=pi 0 0
+# a swapfile is not a swap partition, no line here
+#   use  dphys-swapfile swap[on|off]  for that
