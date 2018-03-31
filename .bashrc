@@ -12,6 +12,9 @@ esac
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
+# x window server를 통해 vim client server 동작을 가능하게 하기 위함입니다.
+export DISPLAY=:0
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -118,8 +121,14 @@ if ! shopt -oq posix; then
 fi
 
 
+alias t0='source .tmuxset-blog'
 alias t1='source .tmuxset-misc'
 alias t2='source .tmuxset-flask'
+alias vi0='vim --servername blog --remote '
+alias vi1='vim --servername misc --remote '
+
+alias mygrep="grep -rn . --exclude={*.o,*.a,tags} -e "
+
 
 #커서 색상을 변경합니다
 echo -ne   '\eP\e]12;#859900\a'  # Cursor       -> green
