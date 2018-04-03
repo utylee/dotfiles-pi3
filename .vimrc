@@ -226,7 +226,7 @@ let g:ctrlp_custom_ignore = {
 "let g:ctrlp_working_path_mode = 'r'
 
 " Use a leader instead of the actual named binding
-nmap <leader>f :CtrlP<cr>
+nmap <leader>f :CtrlPCurWD<cr>
 
 " Easy bindings for its various modes
 nmap <leader>b :CtrlPBuffer<cr>
