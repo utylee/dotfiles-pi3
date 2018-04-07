@@ -6,6 +6,10 @@ set nocompatible
 "set term=screen-256color
 set backspace=indent,eol,start
 
+" 버퍼를 저장하지 않아도 버퍼간 이동을 가능하게끔합니다
+set hidden
+   
+
 " bashrc 의 alias를 읽기 위한 설정입니다
 "let $BASH_ENV = "~/.bashrc"
 let $BASH_ENV = "~/.bash_functions"
