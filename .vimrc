@@ -199,6 +199,7 @@ nmap <leader>e :!ts python '%' 2>/dev/null<CR> <CR>
 nmap <leader>w :exec '!ts python -c \"'getline('.')'\"'<CR>
 nmap <leader>` :set fullscreen<CR>
 nmap <leader>q :bd!<CR>
+nmap <leader>c :!ts C-c<CR> <CR>
 map <F7> :NERDTreeTabsToggle<CR>
 map <F2> :NERDTreeToggle<CR>
 nmap <leader>2 :NERDTreeToggle<CR>
@@ -221,6 +222,11 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
   \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|avi|mkv|mov|mp4|wma|xlsx|mp3|ini|doc|docx|un|bak)$',
 \}
+
+" 현재파일의 디렉토리로 변경 %->  상대경로파일명, :p-> 절대경로파일명, :h->
+" 한마디전으로
+
+nmap <leader>z :cd %:p:h<cr> :pwd<cr>
 
 
 
