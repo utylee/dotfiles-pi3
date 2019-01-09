@@ -14,6 +14,7 @@ HISTCONTROL=ignoreboth
 
 # x window server를 통해 vim client server 동작을 가능하게 하기 위함입니다.
 export DISPLAY=:0
+export GIT_EDITOR=vim
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -119,6 +120,29 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+fast() {
+	cp ~/printer.cfg.ultra-fast ~/printer.cfg
+	echo sksmsqnwk11 | sudo -S service klipper restart
+	echo
+}
+
+quality() {
+	cp ~/printer.cfg.quality ~/printer.cfg
+	echo sksmsqnwk11 | sudo -S service klipper restart
+	echo
+}
+
+x5s() {
+	cp ~/printer.cfg.x5s ~/printer.cfg
+	echo sksmsqnwk11 | sudo -S service klipper restart
+	echo
+}
+
+m() {
+#echo $2 | mutt -s "$1" utylee@gmail.com -a "$3"
+	echo $2 | mutt -s "$1" utylee@gmail.com
+}
 
 
 alias t0='source .tmuxset-blog'
