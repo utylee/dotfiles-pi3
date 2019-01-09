@@ -6,6 +6,10 @@ set nocompatible
 "set term=screen-256color
 set backspace=indent,eol,start
 
+" esc 누를시 딜레이를 없애줍니다
+" 참고사이트 : https://www.johnhawthorn.com/2012/09/vi-escape-delays/
+set timeoutlen=1000 ttimeoutlen=10
+
 " 버퍼를 저장하지 않아도 버퍼간 이동을 가능하게끔합니다
 set hidden
    
@@ -161,6 +165,13 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 "let g:jedi#auto_initialization = 1 
 "let g:jedi#squelch_py_warning = 1
+
+
+" emmet-vim 을 html과 css에서만 사용하는 설정
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
 
 set noundofile
 set number
