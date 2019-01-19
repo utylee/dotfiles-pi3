@@ -216,6 +216,8 @@ map <F2> :NERDTreeToggle<CR>
 nmap <leader>2 :NERDTreeToggle<CR>
 map <F1> :e $MYVIMRC<CR>
 nmap <leader>1 :e $MYVIMRC<CR>
+nmap <leader>5 :syntax sync fromstart<CR>
+nmap <leader>5 :syntax sync fromstart<CR>
 map <A-3> :tabnext<CR>
 map <A-4> :tabprevious<CR>
 map <F3> :cn<CR>
