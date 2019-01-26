@@ -172,6 +172,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
+au BufRead,BufNewFile */etc/nginx/* set ft=nginx
 
 set noundofile
 set number
