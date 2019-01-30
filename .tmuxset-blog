@@ -11,7 +11,7 @@ tmux split-window -d -t vBLOG -v -p 25  #"workon misc"
 
 #misc-3.6을 가리키게 합니다. pyenv와 virtualenvwrapper를 통해 python3.6을 설치해보았습니다
 tmux send-keys -t vBLOG.0 "workon blog" Enter
-tmux send-keys -t vBLOG.0 "cdvirtualenv src" Enter
+tmux send-keys -t vBLOG.0 "cdvirtualenv src/aiohttp/wowinfo" Enter
 tmux send-keys -t vBLOG.0 "vi --servername blog" Enter
 #tmux send-keys -t vMISC.1 "workon 3.4test" Enter
 tmux send-keys -t vBLOG.1 "workon blog" Enter
