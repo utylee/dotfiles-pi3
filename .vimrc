@@ -12,6 +12,7 @@ set timeoutlen=1000 ttimeoutlen=10
 
 " 버퍼를 저장하지 않아도 버퍼간 이동을 가능하게끔합니다
 set hidden
+set tags=tags;/
    
 
 " bashrc 의 alias를 읽기 위한 설정입니다
@@ -167,6 +168,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "let g:jedi#squelch_py_warning = 1
 
 
+"let g:gutentags_trace = 1
+
 " emmet-vim 을 html과 css에서만 사용하는 설정
 
 let g:user_emmet_install_global = 0
@@ -251,6 +254,7 @@ nmap <leader>z :cd %:p:h<cr> :pwd<cr>
 
 " Use a leader instead of the actual named binding
 nmap <leader>f :CtrlPCurWD<cr>
+nmap <leader>a :CtrlPTag<cr>
 
 " Easy bindings for its various modes
 nmap <leader>b :CtrlPBuffer<cr>
