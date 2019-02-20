@@ -254,7 +254,9 @@ nmap <leader>z :cd %:p:h<cr> :pwd<cr>
 
 " Use a leader instead of the actual named binding
 nmap <leader>f :CtrlPCurWD<cr>
+nmap <leader>d :CtrlPBufTagAll<cr>
 nmap <leader>a :CtrlPTag<cr>
+
 
 " Easy bindings for its various modes
 nmap <leader>b :CtrlPBuffer<cr>
