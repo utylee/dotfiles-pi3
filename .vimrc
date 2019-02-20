@@ -6,9 +6,14 @@ set nocompatible
 "set term=screen-256color
 set backspace=indent,eol,start
 
+" for fzf
+set rtp+=~/.fzf
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 " esc 누를시 딜레이를 없애줍니다
 " 참고사이트 : https://www.johnhawthorn.com/2012/09/vi-escape-delays/
 set timeoutlen=1000 ttimeoutlen=10
+set updatetime=1000
 
 " 버퍼를 저장하지 않아도 버퍼간 이동을 가능하게끔합니다
 set hidden
@@ -133,7 +138,7 @@ syntax on
 "let g:virtualenv_directory = '/home/utylee/00-Projects/venv-tyTrader'
 set laststatus=2
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#virtualenv#enabled = 0
 "let g:airline_section_a = airline#sections#create(['mode', %{airline#extensions#branch#get_head()}''branch'])
 
 function! AirlineWrapper(ext)
@@ -151,6 +156,11 @@ let g:airline_section_b = airline#section#create(['%{virtualenv#statusline()}'])
 "let g:airline_section_b = ['branch']
 "let g:virtualenv_stl_format = '[%n]'
 "let g:Powerline_symbols = 'fancy'
+"파일이름만
+"let g:airline_section_c = '%t'
+"디렉토리포함
+let g:airline_section_c = '%f'
+au VimEnter * let g:airline_section_x = airline#section#create(['tagbar']) | :AirlineRefresh
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -203,15 +213,19 @@ if has("gui_running")
 	set fullscreen
 endif
 
+let g:simple_todo_map_normal_mode_keys = 0
 set noshellslash
 "map <F5> : !python3 %<CR>
 "nmap <leader>e :!python3 %<CR>
 "nmap <leader>e :!python3 '%:p'<CR>
 "nmap <leader>e :set shellcmdflag=-ic <CR> :!ts python '%'<CR> <CR> :set shellcmdflag=-c<CR>
 "nmap <leader>e :!ts python '%:p' 2>/dev/null<CR> <CR>
+"nmap <leader>e :!ts rustc '%:p' 2>/dev/null<CR> <CR>
+"nmap <leader>w :!ts rustc '%:t' 2>/dev/null<CR> <CR>
+nmap <leader>w :!ts cargo run '%:t' <CR> <CR>
 nmap <leader>e :!ts python '%' 2>/dev/null<CR> <CR>
 "현재 행을 실행하는 커맨드인데 공백제거가 안돼 아직 제대로 되지 않습니다
-nmap <leader>w :exec '!ts python -c \"'getline('.')'\"'<CR>
+"nmap <leader>w :exec '!ts python -c \"'getline('.')'\"'<CR>
 nmap <leader>` :set fullscreen<CR>
 nmap <leader>q :bd!<CR>
 nmap <leader>c :!ts C-c<CR> <CR>
@@ -253,15 +267,21 @@ nmap <leader>z :cd %:p:h<cr> :pwd<cr>
 "let g:ctrlp_working_path_mode = 'r'
 
 " Use a leader instead of the actual named binding
-nmap <leader>f :CtrlPCurWD<cr>
+"nmap <leader>f :CtrlPCurWD<cr>
+nmap <leader>v :Marks<cr>
 nmap <leader>d :CtrlPBufTagAll<cr>
-nmap <leader>a :CtrlPTag<cr>
+nmap <leader>f :Files<cr>
+"nmap <leader>a :CtrlPTag<cr>
+nmap <leader>a :Rg<cr>
+nmap <leader>s :Tags<cr>
 
 
 " Easy bindings for its various modes
-nmap <leader>b :CtrlPBuffer<cr>
-nmap <leader>t :CtrlPMRU<cr>
-nmap <leader>m :CtrlPMixed<cr>
+"nmap <leader>b :CtrlPBuffer<cr>
+nmap <leader>b :Buffers<cr>
+nmap <leader>t :History<cr>
+"nmap <leader>t :CtrlPMRU<cr>
+"nmap <leader>m :CtrlPMixed<cr>
 "nmap <leader>bs :CtrlPMRU<cr>
 let g:ctrlp_match_window = 'max:12'
 
