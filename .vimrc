@@ -12,7 +12,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " esc 누를시 딜레이를 없애줍니다
 " 참고사이트 : https://www.johnhawthorn.com/2012/09/vi-escape-delays/
-set timeoutlen=1000 ttimeoutlen=10
+set timeoutlen=1000 ttimeoutlen=0
 set updatetime=1000
 
 " 버퍼를 저장하지 않아도 버퍼간 이동을 가능하게끔합니다
@@ -135,6 +135,39 @@ execute pathogen#infect()
 filetype plugin indent on
 syntax on
 
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+
+" Use deoplete.
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+"let g:deoplete#enable_at_startup = 0
+"let g:python3_host_prog='/home/pi/.pyenv/shims/python3'
+"""let g:deoplete#enable_at_startup = 1
+""let g:deoplete#enable_at_startup = 0
+"nmap <leader>4 :call deoplete#enable() <CR><CR>
+""nmap <leader>e :!python3 %<CR>
+""autocmd InsertEnter * call deoplete#enable()
+"if !exists('g:deoplete#omni#input_patterns')
+  "let g:deoplete#omni#input_patterns = {}
+"endif
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
 "let g:virtualenv_directory = '/home/utylee/00-Projects/venv-tyTrader'
 set laststatus=2
 let g:airline_powerline_fonts = 1
@@ -222,15 +255,16 @@ set noshellslash
 "nmap <leader>e :!ts python '%:p' 2>/dev/null<CR> <CR>
 "nmap <leader>e :!ts rustc '%:p' 2>/dev/null<CR> <CR>
 "nmap <leader>w :!ts rustc '%:t' 2>/dev/null<CR> <CR>
-nmap <leader>w :!ts cargo run '%:t' <CR> <CR>
-nmap <leader>e :!ts python '%' 2>/dev/null<CR> <CR>
+nmap <leader>w :!ts cargo build --release <CR> <CR>
+"nmap <leader>w :!ts cargo run '%:t' <CR> <CR>
+nmap <leader>e :!ts python '%:t' 2>/dev/null<CR> <CR>
 "현재 행을 실행하는 커맨드인데 공백제거가 안돼 아직 제대로 되지 않습니다
 "nmap <leader>w :exec '!ts python -c \"'getline('.')'\"'<CR>
 nmap <leader>` :set fullscreen<CR>
 nmap <leader>q :bd!<CR>
 nmap <leader>c :!ts C-c<CR> <CR>
 map <F7> :NERDTreeTabsToggle<CR>
-map <F2> :NERDTreeToggle<CR>
+"map <F2> :NERDTreeToggle<CR>
 nmap <leader>2 :NERDTreeToggle<CR>
 map <F1> :e $MYVIMRC<CR>
 nmap <leader>1 :e $MYVIMRC<CR>
