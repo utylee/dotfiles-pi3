@@ -13,7 +13,8 @@ tmux split-window -d -t vMISC -v -p 25  #"workon misc"
 #tmux send-keys -t vMISC.1 "workon 3.4test" Enter
 tmux send-keys -t vMISC.0 "workon misc" Enter
 tmux send-keys -t vMISC.0 "cdvirtualenv src" Enter
-tmux send-keys -t vMISC.0 "vi --servername misc" Enter
+#tmux send-keys -t vMISC.0 "vi --servername misc" Enter
+tmux send-keys -t vMISC.0 "vi" Enter
 tmux send-keys -t vMISC.1 "workon misc" Enter
 #tmux send-keys -t vMISC.0 ":Virtu" Tab Space "3.4test" Enter
 tmux send-keys -t vMISC.0 ":Virtu" Tab Space "misc" Enter
