@@ -9,6 +9,11 @@ set backspace=indent,eol,start
 " for fzf
 set rtp+=~/.fzf
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
 
 " esc 누를시 딜레이를 없애줍니다
 " 참고사이트 : https://www.johnhawthorn.com/2012/09/vi-escape-delays/
@@ -135,29 +140,62 @@ execute pathogen#infect()
 filetype plugin indent on
 syntax on
 
+"let g:asyncomplete_smart_completion = 1
+"let g:asyncomplete_auto_popup = 1
+"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+"set signcolumn=yes
+"let $RUST_BACKTRACE = 1
+"let g:LanguageClient_loggingLevel = 'INFO'
+"let g:LanguageClient_loggingFile =  expand('~/LanguageClient.log')
+"let g:LanguageClient_serverStderr = expand('~/LanguageServer.log')
+
+"ncm2 configs
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
+"let g:completor_complete_options = 'menuone,noselect,preview'
+set nocompatible
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ }
+let g:ncm2_pyclang#args_file_path = ['.clang_complete']
+autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+"let g:ncm2_pyclang#library_path = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/lib/libclang.so'
+"let g:ncm2_pyclang#clang_path = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin'
+"let g:ncm2_pyclang#library_path = '/usr/local/clang_7.0.1/lib/libclang.so.7'
+"let g:ncm2_pyclang#library_path = '/usr/local/clang_7.0.1/lib/'
+"let g:ncm2_pyclang#clang_path = '/usr/local/clang_7.0.1'
+"let g:ncm2_pyclang#args_file_path = ['.clang_complete']
+"autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+"let g:clang_library_path='/usr/local/clang_7.0.1/lib/libclang.so.7'
+
+"let g:LanguageClient_serverCommands = {
+    "\ 'cpp': ['/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin/clangd'],
+    "\ }
+    "\ 'cpp': ['clangd'],
+    "\ 'cpp': ['/usr/local/clang+llvm-5.0.1-armv7a-linux-gnueabihf/bin/clangd'],
+    "\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+	"\ 'python': ['~/.pyenv/shims/pyls'],
+	"\ 'css': ['css-languageserver', '--stdio'],
+" jedi가 있으므로 이건 굳이 하지 않아봅니다
+"\ 'python': ['/usr/local/bin/pyls'],
+"\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+"\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+
+"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Use deoplete.
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 "let g:deoplete#enable_at_startup = 0
-"let g:python3_host_prog='/home/pi/.pyenv/shims/python3'
+let g:python3_host_prog='/home/pi/.pyenv/shims/python3'
 """let g:deoplete#enable_at_startup = 1
 ""let g:deoplete#enable_at_startup = 0
 "nmap <leader>4 :call deoplete#enable() <CR><CR>
@@ -167,6 +205,38 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
   "let g:deoplete#omni#input_patterns = {}
 "endif
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+"if executable('clangd')
+    "au User lsp_setup call lsp#register_server({
+        "\ 'name': 'clangd',
+        "\ 'cmd': {server_info->['clangd']},
+        "\ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        "\ })
+"endif
+
+"au User lsp_setup call lsp#register_server({
+	"\ 'name': 'css-lc',
+	"\ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
+	"\ 'whitelist': ['css'],
+	"\ })
+"if executable('pyls')
+    "" pip install python-language-server
+    "au User lsp_setup call lsp#register_server({
+        "\ 'name': 'pyls',
+		"\ 'cmd': {server_info->['pyls']},
+        "\ 'whitelist': ['python'],
+        "\ })
+"endif
+"if executable('rls')
+    "au User lsp_setup call lsp#register_server({
+        "\ 'name': 'rls',
+        "\ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        "\ 'whitelist': ['rust'],
+        "\ })
+"endif
+"let g:lsp_signs_enabled = 1         " enable signs
+"let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+""\ 'cmd': {server_info->['pyls']},
 
 "let g:virtualenv_directory = '/home/utylee/00-Projects/venv-tyTrader'
 set laststatus=2
@@ -179,12 +249,39 @@ function! AirlineWrapper(ext)
 	return empty(head) ? '' : printf(' %s', airline#extensions#branch#get_head())
 endfunction
 
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_section_c = '%t'
+" tagbar 업데이트가 너무 느려서 확인해보니 기본 4000이었습니다
+set updatetime=1000
+au VimEnter * let g:airline_section_x = airline#section#create(['tagbar']) | :AirlineRefresh
+"au VimEnter * let g:airline_section_x = airline#section#create_right(['tagbar']) | :AirlineRefresh
+"let g:airline_section_x = airline#section#create_right(['tagbar']) 
+"skip section을 하니 tagbar가 동작을 안했습니다
+"let g:airline_skip_empty_sections = 1
+"let g:airline_section_y=''
+"let g:airline_section_z=''
+let g:airline_section_warning=''
+let g:airline_section_error=''
+let g:airline_section_statistics=''
+let g:airline_mode_map = {
+  \ '__' : '-',
+  \ 'n'  : 'N',
+  \ 'i'  : 'I',
+  \ 'R'  : 'R',
+  \ 'v'  : 'V',
+  \ 'V'  : 'V-L',
+  \ 'c'  : 'C',
+  \ 's'  : 'S',
+\ 'S' : 'S-L',
+\ }
 
-let g:airline_section_a = airline#section#create(['mode', ' ', '%{airline#extensions#branch#get_head()}'])
+"let g:airline_section_b = airline#section#create(['%{virtualenv#statusline()}'])
+"let g:airline_section_a = airline#section#create(['mode', ' ', '%{airline#extensions#branch#get_head()}'])
+
 "let g:airline_section_a = airline#section#create(['mode', '%{AirlineWrapper()}'])
 "let g:airline_section_b = airline#section#create([g:airline_symbols.branch, ' ', '%{fugitive#head()}', ' ', ' %{virtualenv#statusline()}'])
 "let g:airline_section_b = airline#section#create(['%{airline#extensions#branch#get_head()}', ' %{virtualenv#statusline()}'])
-let g:airline_section_b = airline#section#create(['%{virtualenv#statusline()}'])
 "let g:airline_section_b = airline#section#create(['branch'])
 "let g:airline_section_b = ['branch']
 "let g:virtualenv_stl_format = '[%n]'
@@ -255,6 +352,8 @@ set noshellslash
 "nmap <leader>e :!ts python '%:p' 2>/dev/null<CR> <CR>
 "nmap <leader>e :!ts rustc '%:p' 2>/dev/null<CR> <CR>
 "nmap <leader>w :!ts rustc '%:t' 2>/dev/null<CR> <CR>
+nmap <leader>r :Rooter<CR>
+let g:rooter_manual_only = 1
 nmap <leader>w :!ts cargo build --release <CR> <CR>
 "nmap <leader>w :!ts cargo run '%:t' <CR> <CR>
 nmap <leader>e :!ts python '%:t' 2>/dev/null<CR> <CR>
@@ -262,6 +361,7 @@ nmap <leader>e :!ts python '%:t' 2>/dev/null<CR> <CR>
 "nmap <leader>w :exec '!ts python -c \"'getline('.')'\"'<CR>
 nmap <leader>` :set fullscreen<CR>
 nmap <leader>q :bd!<CR>
+nmap <leader>Q :cclose<CR>
 nmap <leader>c :!ts C-c<CR> <CR>
 map <F7> :NERDTreeTabsToggle<CR>
 "map <F2> :NERDTreeToggle<CR>
@@ -303,17 +403,26 @@ nmap <leader>z :cd %:p:h<cr> :pwd<cr>
 " Use a leader instead of the actual named binding
 "nmap <leader>f :CtrlPCurWD<cr>
 nmap <leader>v :Marks<cr>
-nmap <leader>d :CtrlPBufTagAll<cr>
-nmap <leader>f :Files<cr>
-"nmap <leader>a :CtrlPTag<cr>
-nmap <leader>a :Rg<cr>
+"nmap <leader>a :Ag<cr>
+nmap <leader>a :Ag<cr>
 nmap <leader>s :Tags<cr>
+nmap <leader>d :ProjectFiles<cr>
+nmap <leader>f :Files<cr>
+nmap <silent> <Leader>g :Rg <C-R><C-W><CR>
+nmap <leader>x :Ag<cr>
+nmap <leader>b :Buffers<cr>
+nmap <leader>t :History<cr>		
+"nmap <leader>m :CtrlPMixed<cr>
+"nmap <leader>v :Marks<cr>
+"nmap <leader>d :CtrlPBufTagAll<cr>
+"nmap <leader>f :Files<cr>
+"nmap <leader>a :CtrlPTag<cr>
+"nmap <leader>a :Rg<cr>
+"nmap <leader>s :Tags<cr>
 
 
 " Easy bindings for its various modes
 "nmap <leader>b :CtrlPBuffer<cr>
-nmap <leader>b :Buffers<cr>
-nmap <leader>t :History<cr>
 "nmap <leader>t :CtrlPMRU<cr>
 "nmap <leader>m :CtrlPMixed<cr>
 "nmap <leader>bs :CtrlPMRU<cr>
@@ -346,7 +455,7 @@ let g:airline_theme='molokai'
 "let g:airline_theme='jellybeans'
 
 
-let g:jedi#completions_command = "<C-N>"
+"let g:jedi#completions_command = "<C-N>"
 
 "autocmd BufNewFile,BufRead *.qml so c:\vim\vim74\ftplugin\qml.vim
 autocmd BufNewFile,BufRead *.qml setf qml 
