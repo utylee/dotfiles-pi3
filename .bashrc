@@ -160,12 +160,20 @@ vi1() {
 	tmux select-window -t vMISC
 	tmux select-pane -t vMISC.0
 }
+vir() {
+	filename=$PWD/$1
+	tmux send-keys -t vRust.0 ":e $filename" C-m
+	tmux select-window -t vRust
+	tmux select-pane -t vRust.0
+}
 
 
 
-alias t0='source .tmuxset-blog'
-alias t1='source .tmuxset-misc'
-alias t2='source .tmuxset-flask'
+alias dt='tmux detach -a'
+alias t0='source ~/.tmuxset-blog'
+alias tr0='source ~/.tmuxset-rust'
+alias t1='source ~/.tmuxset-misc'
+alias t2='source ~/.tmuxset-flask'
 #alias vi0='vim --servername blog --remote '
 #alias vi1='vim --servername misc --remote '
 
@@ -176,7 +184,25 @@ alias mygrep="grep -rn . --exclude={*.o,*.a,tags} -e "
 echo -ne   '\eP\e]12;#859900\a'  # Cursor       -> green
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+#export PATH="/usr/local/clang+llvm-5.0.1-armv7a-linux-gnueabihf/bin::$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
+export PATH="/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin:$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
+#export PATH="/usr/local/clang+llvm-6.0.1-armv7a-linux-gnueabihf/bin:$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/lib:$LD_LIBRARY_PATH"
+
+#export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(pyenv init -)"
 pyenv virtualenvwrapper_lazy
 
+fd() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+set -o vi
+export FZF_COMPLETION_TRIGGER='**'
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+#export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore'
+#export FZF_CTRL_T_COMMAND='rg --files /home/pi --hidden --follow --no-ignore'
+
+#export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'

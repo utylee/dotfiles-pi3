@@ -12,8 +12,12 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
-
 command! ProjectFiles execute 'Files' s:find_git_root()
+"
+" fzf 에서 Ag 실행시 옵션과 파일명이 아닌 컨텐츠에서의 검색만을 하도록 하는
+" 옵션입니다
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, ' --path-to-ignore ~/.ignore', {'options': '--delimiter : --nth 4..'}, <bang>0)
+
 
 " esc 누를시 딜레이를 없애줍니다
 " 참고사이트 : https://www.johnhawthorn.com/2012/09/vi-escape-delays/
@@ -356,6 +360,7 @@ nmap <leader>r :Rooter<CR>
 let g:rooter_manual_only = 1
 nmap <leader>w :!ts cargo build --release <CR> <CR>
 "nmap <leader>w :!ts cargo run '%:t' <CR> <CR>
+nmap <leader>c :!ts C-c<CR>
 nmap <leader>e :!ts python '%:t' 2>/dev/null<CR> <CR>
 "현재 행을 실행하는 커맨드인데 공백제거가 안돼 아직 제대로 되지 않습니다
 "nmap <leader>w :exec '!ts python -c \"'getline('.')'\"'<CR>
