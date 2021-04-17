@@ -21,8 +21,7 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, ' --path-to-ignore ~/.ignor
 
 " esc 누를시 딜레이를 없애줍니다
 " 참고사이트 : https://www.johnhawthorn.com/2012/09/vi-escape-delays/
-set timeoutlen=1000 ttimeoutlen=0
-set updatetime=1000
+set timeoutlen=1000 ttimeoutlen=10
 
 " 버퍼를 저장하지 않아도 버퍼간 이동을 가능하게끔합니다
 set hidden
@@ -154,18 +153,36 @@ syntax on
 "let g:LanguageClient_loggingFile =  expand('~/LanguageClient.log')
 "let g:LanguageClient_serverStderr = expand('~/LanguageServer.log')
 
+
+
+"let g:ale_completion_enabled = 1
+"set omnifunc=ale#completon#OmniFunc
+"set completeopt=menu,menuone,preview,noselect,noinsert
+
+"let g:completor_python_binary = '/home/pi/.virtualenvs/misc/bin/python'
+"let g:completor_racer_binary = '/home/pi/.cargo/bin/racer'
+"let g:completor_clang_binary = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin/clang'
+
+"let g:completor_filetype_map = {}
+"let g:completor_filetype_map.python = {'ft': 'lsp', 'cmd': 'pyls'}
+
+
+".autocmd User asyncomplete_setup call asyncomplete#register_source(
+    "\ asyncomplete#sources#clang#get_source_options())
+
+
 "ncm2 configs
-autocmd BufEnter * call ncm2#enable_for_buffer()
+"autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 "let g:completor_complete_options = 'menuone,noselect,preview'
 set nocompatible
 
-let g:ncm2_pyclang#args_file_path = ['.clang_complete']
-autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
-let g:ncm2_pyclang#library_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
+"let g:ncm2_pyclang#args_file_path = ['.clang_complete']
+"autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+"let g:ncm2_pyclang#library_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
 
-"let g:ncm2_pyclang#library_path = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/lib/libclang.so'
-"let g:ncm2_pyclang#clang_path = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin'
+let g:ncm2_pyclang#library_path = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/lib/libclang.so'
+let g:ncm2_pyclang#clang_path = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin'
 "let g:ncm2_pyclang#library_path = '/usr/local/clang_7.0.1/lib/libclang.so.7'
 "let g:ncm2_pyclang#library_path = '/usr/local/clang_7.0.1/lib/'
 "let g:ncm2_pyclang#clang_path = '/usr/local/clang_7.0.1'
@@ -195,12 +212,13 @@ let g:ncm2_pyclang#library_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Use deoplete.
+let g:deoplete#enable_at_startup = 0
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-"let g:deoplete#enable_at_startup = 0
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
 let g:python3_host_prog='/home/pi/.pyenv/shims/python3'
-"""let g:deoplete#enable_at_startup = 1
 ""let g:deoplete#enable_at_startup = 0
 "nmap <leader>4 :call deoplete#enable() <CR><CR>
 ""nmap <leader>e :!python3 %<CR>
@@ -428,7 +446,7 @@ nmap <leader>t :History<cr>
 
 
 " Easy bindings for its various modes
-"nmap <leader>b :CtrlPBuffer<cr>
+nmap <leader>v :CtrlPBuffer<cr>
 "nmap <leader>t :CtrlPMRU<cr>
 "nmap <leader>m :CtrlPMixed<cr>
 "nmap <leader>bs :CtrlPMRU<cr>

@@ -97,7 +97,7 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -lhF'
+alias ll='ls -alhF'
 #alias la='ls -A'
 #alias l='ls -CF'
 
@@ -183,11 +183,18 @@ alias mygrep="grep -rn . --exclude={*.o,*.a,tags} -e "
 #커서 색상을 변경합니다
 echo -ne   '\eP\e]12;#859900\a'  # Cursor       -> green
 
+#export CC=/usr/local/gcc-9.1.0/bin/gcc-9.1
+#export CXX=/usr/local/gcc-9.1.0/bin/g++-9.1
+
+
 export PYENV_ROOT="$HOME/.pyenv"
 #export PATH="/usr/local/clang+llvm-5.0.1-armv7a-linux-gnueabihf/bin::$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
-export PATH="/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin:$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
+#export PATH="/usr/local/clang+llvm-9.0.0-armv7a-linux-gnueabihf/bin:$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
+export PATH="/usr/local/gcc-9.1.0/bin:/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin:$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
+#export PATH="/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin:$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
 #export PATH="/usr/local/clang+llvm-6.0.1-armv7a-linux-gnueabihf/bin:$HOME/.cargo/bin:$PYENV_ROOT/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/usr/local/gcc-9.1.0/lib:/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/lib:$LD_LIBRARY_PATH"
+#export LD_LIBRARY_PATH="/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/lib:$LD_LIBRARY_PATH"
 
 #export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(pyenv init -)"
@@ -206,3 +213,7 @@ export FZF_COMPLETION_TRIGGER='**'
 
 #export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
 export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
