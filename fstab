@@ -1,7 +1,10 @@
 proc            /proc           proc    defaults          0       0
-PARTUUID=b237451b-01  /boot           vfat    defaults          0       2
-PARTUUID=b237451b-02  /               ext4    defaults,noatime  0       1
-//192.168.0.207/clark /home/pi/media cifs username=utylee,password=sksmsqnwk11,iocharset=utf8,file_mode=0777,dir_mode=0777,uid=pi,gid=pi,noauto,x-systemd.automount 0 0
-
+PARTUUID=ea7d04d6-01  /boot           vfat    defaults          0       2
+PARTUUID=ea7d04d6-02  /               ext4    defaults,noatime  0       1
 # a swapfile is not a swap partition, no line here
 #   use  dphys-swapfile swap[on|off]  for that
+UUID=0d2915dd-380b-4f9a-817f-d4e54b76dac3 /home/pi/media/4001 ext4 defaults,nofail,x-systemd.device-timeout=18 0 0
+# 디스크 체킹을 종종하는데 9초까지도 늘리긴 하던 예제가 있는데 보통 3초로 한다는 것 같습니다
+#       3초로 하니 실패해서 9초로 해보니 성공했습니다
+UUID=367b96f6-4c92-477a-baee-ca0faca99a24 /home/pi/media/4002 ext4 defaults,nofail,x-systemd.device-timeout=18 0 0
+
