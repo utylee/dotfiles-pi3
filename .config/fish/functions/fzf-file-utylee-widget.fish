@@ -22,7 +22,7 @@ function fzf-file-utylee-widget -d "List files and folders"
 	end
 	#echo $mycommand
 
-    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 50%
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 100%
     begin
       set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS"
 	  # eval "$FZF_CTRL_T_COMMAND | "(__fzfcmd)' -m --query "'$fzf_query'"' | while read -l r; set result $result $r; end
