@@ -591,19 +591,10 @@ map <A-4> :tabprevious<CR>
 
 nmap <leader>z :cd %:p:h<cr> :pwd<cr>
 nmap <leader>Z :ProsessionDelete<cr>
-
-
-
-" Use the nearest .git directory as the cwd
-" This makes a lot of sense if you are working on a project that is in version
-" control. It also supports works with .svn, .hg, .bzr.
-"let g:ctrlp_working_path_mode = 'r'
-
-
  
+command! Dirs call fzf#run(fzf#wrap({'source': 'fd --type d --hidden --color=always', 'sink': 'edit'}))
 
 " Use a leader instead of the actual named binding
-"nmap <leader>f :CtrlPCurWD<cr>
 "nmap <leader>v :Marks<cr>
 nmap <leader>a :Rg<cr>
 nmap <leader>s :Tags<cr>
@@ -612,7 +603,9 @@ nmap <leader>k :BLines<cr>
 nmap <leader>l :Lines<cr>
 "nmap <leader>d :Tags<cr>
 "nmap <leader>g :ProjectFiles<cr>
-nmap <leader>f :Files<cr>
+
+nmap <leader>fa :Files<cr>
+nmap <leader>ff :Dirs<cr>
 nmap <silent> <leader>ud :BTags <C-R><C-W><CR>
 nmap <silent> <Leader>us :Tags <C-R><C-W><CR>
 nmap <silent> <Leader>ua :Rg <C-R><C-W><CR>
