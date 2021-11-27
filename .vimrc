@@ -574,7 +574,9 @@ set noswapfile
 set noea 
 
 " 현재 파일의 디렉토리로 이동
-set autochdir
+"set autochdir
+" 한번 뺴보겠습니다
+
 " 만약 플러긴에서 문제가 생긴다면 아래대안을 사용할 것
 "nnoremap ,cd :cd %:p:h<CR> 
 
