@@ -681,6 +681,7 @@ nmap <C-s>n :Snippets<cr>
 
 " for vim-fugitive
 nmap <leader>gd :Gdiffsplit<cr>
+nmap <leader>gv :Gvdiffsplit<cr>
 nmap <leader>gb :Git blame<cr>
 nmap <leader>gw :Gwrite<cr>
 nmap <leader>gr :Gread<cr>
