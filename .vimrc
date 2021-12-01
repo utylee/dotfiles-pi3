@@ -128,6 +128,12 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap ,e <Plug>(coc-rename)
 nmap ,d <Plug>(coc-codeaction)
 
+" coc-prettier settings
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+vmap ;f  <Plug>(coc-format-selected)
+nmap ;f  <Plug>(coc-format-selected)
+
+
 
 "" Ultisnips  ------------------------------------------------------
 "
@@ -617,6 +623,11 @@ nmap ,c :cclose<CR>
 nmap ,r :syntax sync fromstart<CR>
 " ;의 반대방향 역할을 하는 ,키를 더블클릭으로 사용하기 위함입니다
 nnoremap ,, ,			
+
+nmap ;z :cd %:p:h<cr> :pwd<cr>
+nmap ;Z :ProsessionDelete<cr>
+nmap ;r :Rooter<CR>
+nnoremap ;; ;
 
 nmap <leader>c :!ts C-c<CR> <CR>
 "map <F7> :NERDTreeTabsToggle<CR>
