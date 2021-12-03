@@ -33,3 +33,4 @@
 --with-google_perftools_module \
 --with-cpp_test_module \
 --with-debug
+#--with-http_perl_module \
