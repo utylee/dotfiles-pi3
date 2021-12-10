@@ -677,6 +677,7 @@ nmap <leader>l :Lines<cr>
 command! Dirs call fzf#run(fzf#wrap({'source': 'fd --type d --hidden --color=always', 'sink': 'edit'}))
 nmap <leader>fa :Files<cr>
 nmap <leader>ff :Dirs<cr>
+nmap <leader>fg :ProjectFiles<cr>
 nmap <silent> <leader>ud :BTags <C-R><C-W><CR>
 nmap <silent> <Leader>us :Tags <C-R><C-W><CR>
 nmap <silent> <Leader>ua :Rg <C-R><C-W><CR>
