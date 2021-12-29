@@ -8,7 +8,16 @@ set nocompatible
 	"set shell=sh
 "endif
 set iskeyword+=-
-"
+
+let g:netrw_keepdir=0
+runtime macros/matchit.vim
+
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
 " esc 누를시 딜레이를 없애줍니다
 " 참고사이트 : https://www.johnhawthorn.com/2012/09/vi-escape-delays/
 set timeoutlen=1000 ttimeoutlen=10
@@ -131,7 +140,8 @@ nmap ,d <Plug>(coc-codeaction)
 " coc-prettier settings
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap ;f  <Plug>(coc-format-selected)
-nmap ;f  <Plug>(coc-format-selected)
+nmap ;f  :Prettier<CR>
+"nmap ;f  <Plug>(coc-format-selected)
 
 
 
@@ -151,8 +161,8 @@ nmap ;f  <Plug>(coc-format-selected)
 
 
 "command! -bang -nargs=? -complete=dir Files
-    "\ call fzf#vim#files(<q-args>,
-	"\ {'options': ['--layout=reverse', '--info=inline']}, <bang>0)
+			"\ call fzf#vim#files(<q-args>,
+			"\ {'options': ['--layout=reverse', '--info=inline']}, <bang>0)
 
 
 "let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
@@ -166,17 +176,17 @@ nmap ;f  <Plug>(coc-format-selected)
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, ' --path-to-ignore ~/.ignore', {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 
 "command! -bang -nargs=* Rg
-  "\ call fzf#vim#grep(
-  "\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  "\   <bang>0 ? fzf#vim#with_preview('up:60%')
-  "\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  "\   <bang>0)
+			"\ call fzf#vim#grep(
+			"\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+			"\   <bang>0 ? fzf#vim#with_preview('up:60%')
+			"\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+			"\   <bang>0)
 "command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden --path-to-ignore ~/.ignore', <bang>0)
 ""let g:fzf_ag_raw =1
 "command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--ignore "*json"', <bang>0)
@@ -199,9 +209,9 @@ set backspace=indent,eol,start
 ""inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 "
 "inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  "\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+			"\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 "inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  "\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+			"\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 ""
 "" complete 완성후 :pclose 로 프리뷰윈도우 닫는 명령
 "" If you prefer the Omni-Completion tip window to close when a selection is
@@ -219,11 +229,11 @@ set tags=tags;/
 let $BASH_ENV = "~/.bash_functions"
 
 "if exists('$TMUX')
-  "let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  "let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 "else
-  "let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  "let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 "endif
 "osx 터미널 상에서의 인서트모드 커서를 변경합니다.
 "let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -244,12 +254,12 @@ let &t_SI .= "\<Esc>[5 q"
 
 " solid block
 " let &t_EI .= "\<Esc>[1 q"
-  " 1 or 0 -> blinking block
-  " 3 -> blinking underscore
-  "	4 -> solid underscore
-  " Recent versions of xterm (282 or above) also support
-  " 5 -> blinking vertical bar
-  " 6 -> solid vertical bar
+" 1 or 0 -> blinking block
+" 3 -> blinking underscore
+"	4 -> solid underscore
+" Recent versions of xterm (282 or above) also support
+" 5 -> blinking vertical bar
+" 6 -> solid vertical bar
 
 let &t_8f="\e[38;2;%ld;%ld;%ldm"
 let &t_8b="\e[48;2;%ld;%ld;%ldm"
@@ -268,27 +278,27 @@ set t_ut=
 
 "set diffexpr=MyDiff()
 "function MyDiff()
-  "let opt = '-a --binary '
-  "if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  "if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  "let arg1 = v:fname_in
-  "if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  "let arg2 = v:fname_new
-  "if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  "let arg3 = v:fname_out
-  "if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  "let eq = ''
-  "if $VIMRUNTIME =~ ' '
-    "if &sh =~ '\<cmd'
-      "let cmd = '""' . $VIMRUNTIME . '\diff"'
-      "let eq = '"'
-    "else
-      "let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    "endif
-  "else
-    "let cmd = $VIMRUNTIME . '\diff'
-  "endif
-  "silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+"let opt = '-a --binary '
+"if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+"if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+"let arg1 = v:fname_in
+"if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+"let arg2 = v:fname_new
+"if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+"let arg3 = v:fname_out
+"if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+"let eq = ''
+"if $VIMRUNTIME =~ ' '
+"if &sh =~ '\<cmd'
+"let cmd = '""' . $VIMRUNTIME . '\diff"'
+"let eq = '"'
+"else
+"let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+"endif
+"else
+"let cmd = $VIMRUNTIME . '\diff'
+"endif
+"silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 "endfunction
 
 "set runtimepath=~/.vim
@@ -336,7 +346,7 @@ syntax on
 "let g:completor_clang_binary = '/usr/local/clang+llvm-7.0.1-armv7a-linux-gnueabihf/bin/clang'
 
 "let g:completor_complete_options = 'menuone,noselect'
- 
+
 
 
 "for ncm2
@@ -352,15 +362,15 @@ set nocompatible
 
 "python에서 $2 $1 이런게 나와서 일단 아래 vim lsp를 사용하기로 변경
 "let g:LanguageClient_serverCommands = {
-	"\ 'cpp': ['clangd'],
-    "\ }
+			"\ 'cpp': ['clangd'],
+			"\ }
 
-	"\ 'python': ['~/.pyenv/shims/pyls'],
-	"\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-	"\ 'css': ['css-languageserver', '--stdio'],
+			"\ 'python': ['~/.pyenv/shims/pyls'],
+			"\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+			"\ 'css': ['css-languageserver', '--stdio'],
 " ternjs 를 사용하므로 제거
-"\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-"\ 'javascript': ['javascript-typescript-stdio'],
+			"\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+			"\ 'javascript': ['javascript-typescript-stdio'],
 
 "nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
