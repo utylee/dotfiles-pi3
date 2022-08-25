@@ -1,3 +1,3 @@
 function subs
-	/home/odroid/.virtualenvs/misc/bin/python /home/odroid/.virtualenvs/misc/src/subsmatching.py 
+	/home/pi/.virtualenvs/misc/bin/python /home/pi/.virtualenvs/misc/src/subsmatching.py 
 end
