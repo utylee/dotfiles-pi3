@@ -19,15 +19,39 @@ set -Ux fish_term24bit 1
 set -gx EDITOR /usr/bin/vi
 set -gx GHQ_ROOT /home/pi/.ghq
 
+#set -x LANG ko_KR.UTF-8
+#set -x LANGUAGE ko_KR:ko
+#set -x LC_ALL ko_KR.UTF-8
+
+
 # PATH
-#set CLANGHOME /usr/local/clang-14-dev
-set CLANGHOME /usr/local/clang+llvm-12.0.1-armv7a-linux-gnueabihf
-set -l NODEHOME /usr/local/node-v16.13.0-linux-armv7l
-set -x PATH $CLANGHOME/bin $PATH
-set -x PATH $HOME/.go/bin /usr/local/go1.17.3/bin $NODEHOME/bin $PATH
-set -gx CC $CLANGHOME/bin/clang
-set -gx CXX $CLANGHOME/bin/clang++
-set -gx LD_LIBRARY_PATH $CLANGHOME/lib $LD_LIBRARY_PATH 
+##set CLANGHOME /usr/local/clang-14-dev
+#set CLANGHOME /usr/local/clang+llvm-12.0.1-armv7a-linux-gnueabihf
+set -l NODEHOME /usr/local/node-v22.22.0-linux-armv7l
+#set -x PATH $CLANGHOME/bin $PATH
+#set -x PATH $HOME/.go/bin /usr/local/go1.17.3/bin $NODEHOME/bin $PATH
+#set -gx CC $CLANGHOME/bin/clang
+#set -gx CXX $CLANGHOME/bin/clang++
+#set -gx LD_LIBRARY_PATH $CLANGHOME/lib $LD_LIBRARY_PATH 
+
+# set -x PATH $DART/bin $PATH
+## set -Up fish_user_paths $DART/bin
+## set -x PATH $ANDROID/cmdline-tools/12.0/bin $PATH
+#set -Ua fish_user_paths $ANDROID/cmdline-tools/12.0/bin
+## set -x PATH $ANDROID/emulator $PATH
+#set -Ua fish_user_paths $ANDROID/emulator
+## set -x PATH $ANDROID/platform-tools $PATH
+#set -Ua fish_user_paths $ANDROID/platform-tools
+## # set -x PATH $FLUTTER/bin $PATH
+#set -Ua fish_user_paths $FLUTTER/bin
+## set -x PATH $CLANGHOME/bin $PATH
+#set -Ua fish_user_paths $CLANGHOME/bin
+## set -x PATH $ESPHOME/bin $PATH
+#set -Ua fish_user_paths $ESPHOME/bin
+# set -x PATH $HOME/.go/bin $GOHOME/bin $NODEHOME/bin $PATH
+set -Ua fish_user_paths $HOME/.go/bin $GOHOME/bin $NODEHOME/bin /usr/sbin /sbin
+
+
 
 # FZF
 # fzf을 직접입력해 파일명 탐색 명내용 
