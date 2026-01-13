@@ -1,3 +1,2 @@
 #!/bin/bash
-
-bash -c "echo 1 > /sys/class/backlight/rpi_backlight/bl_power"
+sudo sh -c 'echo 0 > /sys/class/backlight/10-0045/brightness'

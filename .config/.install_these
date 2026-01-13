@@ -1,6 +1,13 @@
 * install fish-shell
 git clone https://github.com/fish-shell/fish-shell.git
 cd fish-shell; mkdir build ; cd build ; cmake ..; make; sudo make install 
+
+* 새방법
+mkdir build; cd build
+cmake ..
+cmake --build .
+sudo cmake --install .
+
 	*if MACOS
 		mkdir build; cd build
 		cmake .. -G Xcode -DBUILD_DOCS=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo
@@ -13,6 +20,10 @@ chsh -s /usr/local/bin/fish
 
 * install fisher
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+
+* 새방법
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish \
+  -o ~/.config/fish/functions/fisher.fish
 
 * install fisher pyenv plugin
 fisher install utylee/pyenv 
@@ -53,9 +64,18 @@ wget curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev
 libpq-dev libcurl4-openssl-dev
 
 * nginx compile dependencies:
-apt-get install libperl-dev libpcre3 libpcre3-dev zlib1g zlib1g-dev openssl libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev google-perftools libgoogle-perftools-dev
+apt-get install libperl-dev libpcre3 libpcre3-dev zlib1g zlib1g-dev openssl libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev google-perftools libgoogle-perftools-dev 
 #아래 몇개 설치한 건 빼고 위에 축약본입니다
 #apt-get install make libperl-dev libpcre3 libpcre3-dev zlib1g zlib1g-dev openssl libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev google-perftools libgoogle-perftools-dev gcc g++
+
+* nginx service 등록
+git clone https://github.com/Fleshgrinder/nginx-sysvinit-script.git
+sudo make install
+
+* npm 을 sudo에서 실행이 가능하게 하는 방법
+sudo EDITOR=vi visudo 실행후
+Defaults   secure_path=에 /usr/local/node-v16.13.0-linux-armv7l/bin 등의
+npm 폴더를 추가해줍니다
 
 
 * 참고: 
