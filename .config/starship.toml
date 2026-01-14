@@ -14,17 +14,19 @@ add_newline = false
 #error_symbol = "[❯](fg:1)"
 #vicmd_symbol = "[N](fg:14 bold)"
 ##vicmd_symbol = "[❮](bold #207dab)"
+# [PI](bold fg:#C76440)\
 
 format = """
 $python\
-[PI1](bold fg:#C76440)\
+[PI](bold fg:#0a8c0c)\
 $username\
 $directory\
 $git_branch$git_commit\
 $character\
 """
 [character]
-success_symbol = "[❯](bold #C76440)"
+success_symbol = "[❯](bold #0a8c0c)"
+# success_symbol = "[❯](bold #C76440)"
 #error_symbol = "[✗](fg:1)"
 #error_symbol = "[❯](fg:1)"
 error_symbol = "[❯](fg:12)"
@@ -73,6 +75,7 @@ disabled = true
 #format = "[${symbol}${version}\\($virtualenv\\)]($style) "
 #format = "[\\($virtualenv\\)](bold #a87932) "
 format = "[\\($virtualenv\\)](fg:3 bg:8) "
+# format = "[\\($virtualenv\\)](fg:3 bg:#a67f32) "
 # 아래 파일로 버전표시를 하는 것 같은데 env 용으로만 사용키 위해 아래를 다 비웠습니다
 detect_files = []
 detect_folders = []
@@ -95,7 +98,8 @@ format = " [$path](fg:2)[$read_only]($read_only_style)"  #green
 #format = "[ $symbol$branch ](fg:#222222 bg:#8f3928)"
 #format = "[ $symbol$branch ](fg:#222222 bg:#9c341f)"
 #format = "[ $symbol$branch ](bold fg:black bg:#cb4b16)"
-format = "[ $symbol$branch ](fg:8 bg:9)"					#brblack:orange 
+# format = "[ $symbol$branch ](fg:8 bg:9)"					#brblack:orange 
+format = "[ $symbol$branch ](fg:8 bg:#a67f32)"					#brblack:orange 
 only_attached = true
 symbol = " "
 #9c341f
