@@ -1,0 +1,46 @@
+[Unit]
+Description=Wyoming Satellite
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=utylee
+WorkingDirectory=/home/utylee/temp/wyoming-satellite
+ExecStart=/home/utylee/temp/wyoming-satellite/script/run \
+  --name pi3 \
+  --uri tcp://0.0.0.0:10700 \
+  --mic-command "arecord -D plughw:2,0 -r 16000 -c 1 -f S16_LE -t raw" \
+  --snd-command "aplay -D plughw:0,0 -r 22050 -c 1 -f S16_LE -t raw"
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+;
+; [Unit]
+; Description=Wyoming Satellite
+; After=network-online.target
+; Wants=network-online.target
+
+; [Service]
+; User=utylee
+; WorkingDirectory=/home/utylee/temp/wyoming-satellite
+; ; ExecStart=/home/utylee/temp/wyoming-satellite/script/run \
+; ;   --server 192.168.1.201 --port 10300 \
+; ;   --mic-device hw:2,0 \
+; ;   --speaker-device hw:0,0
+
+; ExecStart=/home/utylee/temp/wyoming-satellite/script/run \
+;   --name pi3 \
+;   --uri tcp://0.0.0.0:10700 \
+;   --mic-command "arecord -D plughw:1,0 -r 16000 -c 1 -f S16_LE -t raw" \
+;   --snd-command "aplay -D plughw:0,0 -r 22050 -c 1 -f S16_LE -t raw"
+
+; Restart=on-failure
+; RestartSec=2
+
+; [Install]
+; WantedBy=multi-user.target
