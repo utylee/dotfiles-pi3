@@ -100,7 +100,8 @@ format = " [$path](fg:2)[$read_only]($read_only_style)"  #green
 #format = "[ $symbol$branch ](fg:#222222 bg:#9c341f)"
 #format = "[ $symbol$branch ](bold fg:black bg:#cb4b16)"
 # format = "[ $symbol$branch ](fg:8 bg:9)"					#brblack:orange 
-format = "[ $symbol$branch ](fg:8 bg:#a67f32)"					#brblack:orange 
+# format = "[ $symbol$branch ](fg:8 bg:#a67f32)"					#brblack:orange 
+format = "[ $symbol$branch ](fg:0 bg:#a67f32)"					#brblack:orange 
 only_attached = true
 symbol = " "
 #9c341f
