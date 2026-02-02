@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DEV="/sys/class/backlight/10-0045/brightness"
+
+if [[ $# -ne 1 ]]; then
+  echo "usage: turn-backlight <0-255>" >&2
+  exit 2
+fi
+
+val="$1"
+if ! [[ "$val" =~ ^[0-9]+$ ]] || (( val < 0 || val > 255 )); then
+  echo "value must be 0..255" >&2
+  exit 2
+fi
+
+echo "$val" > "$DEV"
